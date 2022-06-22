@@ -3,7 +3,6 @@ import bs4
 
 base_url = "https://habr.com"
 url = base_url + "/ru/all/"
-HUBS = ["Разработка игр *", "Разработка под iOS *", "Разработка мобильных приложений *"]
 
 HEADERS = {
     "Accept-Encoding": "gzip, deflate, br",
@@ -20,25 +19,26 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0"
 }
 
+# определяем список ключевых слов
+KEYWORDS = ['дизайн', 'фото', 'web', 'python']
+
 response = requests.get(base_url, headers=HEADERS)
 text = response.text
 
 soup = bs4.BeautifulSoup(text, features="html.parser")
 articles = soup.find_all("article")
-# print(articles)
-# print(len(articles))
 
 for article in articles:
-    hubs = article.find_all(class_="tm-article-snippet__hubs-item")
-    hubs = [hub.text.strip() for hub in hubs]
 
-    for hub in hubs:
-        if hub in HUBS:
-            href = article.find(class_="tm-article-snippet__title-link").attrs["href"]
-            title = article.find("h2").find("span").text
+    abstract = str(article.find(class_="tm-article-body tm-article-snippet__lead").find("p")).lower()
+    title = str(article.find("h2").find("span").text).lower()
 
-            result = f"{title} - {base_url}/{href}"
-            print(result)
+    set_abstract = set(abstract.split(' '))
+    set_title = set(title.split(' '))
+    set_a_t = set_abstract.union(set_title)
 
-    # print(hubs)
-    # print()
+    if len(set(KEYWORDS).intersection(set_a_t)) > 0:
+        date = article.find(class_="tm-article-snippet__datetime-published").find("time").text
+        href = article.find(class_="tm-article-snippet__title-link").attrs["href"]
+
+        print(f'{date} - {title} - {base_url}/{href}')
