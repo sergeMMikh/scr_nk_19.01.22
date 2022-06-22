@@ -1,5 +1,6 @@
 import requests
 import bs4
+import re
 
 base_url = "https://habr.com"
 url = base_url + "/ru/all/"
@@ -20,7 +21,7 @@ HEADERS = {
 }
 
 # определяем список ключевых слов
-KEYWORDS = ['дизайн', 'фото', 'web', 'python']
+KEYWORDS = ['дизайн', 'фото', 'web', 'python', 'вредные']
 
 response = requests.get(base_url, headers=HEADERS)
 text = response.text
@@ -31,7 +32,10 @@ articles = soup.find_all("article")
 for article in articles:
 
     abstract = str(article.find(class_="tm-article-body tm-article-snippet__lead").find("p")).lower()
+    abstract = re.sub(r'[^\w\s]', '', abstract)
+
     title = str(article.find("h2").find("span").text).lower()
+    title = re.sub(r'[^\w\s]', '', title)
 
     set_abstract = set(abstract.split(' '))
     set_title = set(title.split(' '))
