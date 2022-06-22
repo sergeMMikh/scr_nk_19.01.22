@@ -21,7 +21,7 @@ HEADERS = {
 }
 
 # определяем список ключевых слов
-KEYWORDS = ['дизайн', 'фото', 'web', 'python', 'вредные']
+KEYWORDS = ['дизайн', 'фото', 'web', 'python', 'офис']
 
 response = requests.get(base_url, headers=HEADERS)
 text = response.text
@@ -31,11 +31,13 @@ articles = soup.find_all("article")
 
 for article in articles:
 
+    pattern = re.compile(r"([^\w\s])")
+
     abstract = str(article.find(class_="tm-article-body tm-article-snippet__lead").find("p")).lower()
-    abstract = re.sub(r'[^\w\s]', '', abstract)
+    abstract = pattern.sub('', abstract)
 
     title = str(article.find("h2").find("span").text).lower()
-    title = re.sub(r'[^\w\s]', '', title)
+    title = pattern.sub('', title)
 
     set_abstract = set(abstract.split(' '))
     set_title = set(title.split(' '))
