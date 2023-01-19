@@ -23,24 +23,17 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0"
 }
 
-href = "https://www.nike.com/de/w/jordan-schuhe-37eefzy7ok"
+href = "https://www.nike.com/de/w/damen-gym-running-22fovz5e1x6"
 
 response = requests.get(href, headers=HEADERS)
 text = response.text
 soup = bs4.BeautifulSoup(text, features="html.parser")
 
-data = soup.find('div', class_="product-grid__items css-hvew4t")
+data = soup.find('div', class_="categories__content")
 
-products = data.find_all('div', class_="product-card product-grid__card css-c2ovjx")
+categories = data.find_all('button', class_="categories__item")
 
-for product in products:
-    product_cart = product.find('div', class_='product-card__body')
-    product_img = product_cart.find('a', class_='product-card__img-link-overlay')
-    aria_label = product_img.get('aria-label')
-    print(f'aria_label: {aria_label}')
-    href = product_img.get('href')
-    print(f'href: {href}')
-    product_cart_price_info = product_cart.find('div', class_='product-card__price')
-    product_price = product_cart_price_info.get_text()
-    print(f'product_price: {product_price}\n')
+for category in categories:
 
+    url = category['data-url']
+    print(f'url: {url}')
