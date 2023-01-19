@@ -38,9 +38,23 @@ soup = bs4.BeautifulSoup(text, features="html.parser")
 # print('soup')
 # pprint(soup)
 
-data = soup.find('div', class_="product-grid__items css-hvew4t").find('div', class_="product-card product-grid__card  css-c2ovjx")
+data = soup.find('div', class_="product-grid__items css-hvew4t")
 print('data')
 pprint(data)
+
+products = data.find_all('div', class_="product-card product-grid__card css-c2ovjx")
+# print('products')
+# pprint(products)
+
+for product in products:
+
+    print('product:')
+    pprint(product)
+    print(f'type(product): {type(product)}')
+    product_number = product.find('div', class_="product-card__body")  # .get('id')
+    print(f'product_number: {product_number}')
+    # print(f'product_number: {product_number.get("data-product-position")}')
+
 
 # soup = bs4.BeautifulSoup(text, features="html.parser")
 # articles = soup.find_all('class="slide item"')
