@@ -2,8 +2,12 @@ import requests
 import bs4
 import re
 
-base_url = "https://habr.com"
-url = base_url + "/ru/all/"
+from pprint import pprint
+
+base_url = "https://www.nike.com/de"
+url1 = base_url + "herren"
+url2 = base_url + "damen"
+url3 = base_url + "kinder"
 
 HEADERS = {
     "Accept-Encoding": "gzip, deflate, br",
@@ -22,28 +26,44 @@ HEADERS = {
 
 KEYWORDS = ['дизайн', 'фото', 'web', 'python', 'офис']
 
-response = requests.get(base_url, headers=HEADERS)
+# response = requests.get(url1, headers=HEADERS)
+# text = response.text
+
+
+# href="https://www.nike.com/de/w/herren-air-max-90-schuhe-auqmoznik1zy7ok"
+href = "https://www.nike.com/de/w/schuhe-y7ok"
+response = requests.get(href, headers=HEADERS)
 text = response.text
-
 soup = bs4.BeautifulSoup(text, features="html.parser")
-articles = soup.find_all("article")
+# print('soup')
+# pprint(soup)
 
-for article in articles:
+data = soup.find('div', class_="product-grid__items css-hvew4t").find('div', class_="product-card product-grid__card  css-c2ovjx")
+print('data')
+pprint(data)
 
-    pattern = re.compile(r"([^\w\s])")
+# soup = bs4.BeautifulSoup(text, features="html.parser")
+# articles = soup.find_all('class="slide item"')
 
-    abstract = str(article.find(class_="tm-article-body tm-article-snippet__lead").find("p")).lower()
-    abstract = pattern.sub('', abstract)
+# print('articles')
+# pprint(articles)
 
-    title = str(article.find("h2").find("span").text).lower()
-    title = pattern.sub('', title)
-
-    set_abstract = set(abstract.split(' '))
-    set_title = set(title.split(' '))
-    set_a_t = set_abstract.union(set_title)
-
-    if len(set(KEYWORDS).intersection(set_a_t)) > 0:
-        date = article.find(class_="tm-article-snippet__datetime-published").find("time").text
-        href = article.find(class_="tm-article-snippet__title-link").attrs["href"]
-
-        print(f'{date} - {title} - {base_url}/{href}')
+# for article in articles:
+#
+#     pattern = re.compile(r"([^\w\s])")
+#
+#     abstract = str(article.find(class_="tm-article-body tm-article-snippet__lead").find("p")).lower()
+#     abstract = pattern.sub('', abstract)
+#
+#     title = str(article.find("h2").find("span").text).lower()
+#     title = pattern.sub('', title)
+#
+#     set_abstract = set(abstract.split(' '))
+#     set_title = set(title.split(' '))
+#     set_a_t = set_abstract.union(set_title)
+#
+#     if len(set(KEYWORDS).intersection(set_a_t)) > 0:
+#         date = article.find(class_="tm-article-snippet__datetime-published").find("time").text
+#         href = article.find(class_="tm-article-snippet__title-link").attrs["href"]
+#
+#         print(f'{date} - {title} - {base_url}/{href}')
