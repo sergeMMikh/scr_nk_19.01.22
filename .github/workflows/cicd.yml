@@ -1,5 +1,5 @@
 name:
-  Django Testing and Deploy
+  Scrap test
 
 on:
   push:
@@ -18,16 +18,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Activate enviroments
-        run: python -m venv .venv
-
       - name: setup libs
         run: |
           pip install --upgrade pip |
           pip install -r requirements.txt
 
       - name: Linting
-        run: flake8 stocks_products
-
-      - name: Linting of logistic
         run: flake8
