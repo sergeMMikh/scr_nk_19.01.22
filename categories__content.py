@@ -18,18 +18,23 @@ def read_headers(file_name='headers.json'):
     return headers
 
 
-HEADERS = read_headers()
+def get_categories(href: str) -> dict:
+    headers = read_headers()
 
-href = "https://www.nike.com/de/w/damen-gym-running-22fovz5e1x6"
+    response = requests.get(href, headers=headers)
+    text = response.text
+    soup = bs4.BeautifulSoup(text, features="html.parser")
 
-response = requests.get(href, headers=HEADERS)
-text = response.text
-soup = bs4.BeautifulSoup(text, features="html.parser")
+    data = soup.find('div', class_="categories__content")
 
-data = soup.find('div', class_="categories__content")
+    categories = data.find_all('button', class_="categories__item")
 
-categories = data.find_all('button', class_="categories__item")
+    urls_list = dict()
 
-for category in categories:
-    url = category['data-url']
-    print(f'url: {url}')
+    for category in categories:
+        name = category.get_text()
+        url = category['data-url']
+
+        urls_list.setdefault(name, url)
+
+    return urls_list

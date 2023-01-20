@@ -1,8 +1,5 @@
-import json
-from pprint import pprint
+product_price = ['68,97\xa0', '114,99\xa0', '']
 
-with open('headers.json', 'r') as h:
-    headers = json.load(h)
+price = ''.join([i.replace(u'\xa0', u"€ ") for i in product_price])
 
-print('headers')
-pprint(headers)
+print(f'price: {price}')
