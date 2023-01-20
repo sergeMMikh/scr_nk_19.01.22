@@ -68,4 +68,3 @@ for category_name, href in product_categories.items():
             print(type(inst))  # the exception instance
             print(inst.args)  # arguments stored in .args
             print(inst)
-
