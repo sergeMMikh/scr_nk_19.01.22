@@ -3,13 +3,6 @@ import json
 import requests
 import bs4
 
-# from pprint import pprint
-
-base_url = "https://www.nike.com/de"
-url1 = base_url + "herren"
-url2 = base_url + "damen"
-url3 = base_url + "kinder"
-
 
 def read_headers(file_name='headers.json'):
     with open(file_name, 'r') as h:

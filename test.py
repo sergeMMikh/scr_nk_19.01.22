@@ -1,5 +1,13 @@
-product_price = ['68,97\xa0', '114,99\xa0', '']
+from pprint import pprint
 
-price = ''.join([i.replace(u'\xa0', u"€ ") for i in product_price])
+categories = {}
 
-print(f'price: {price}')
+
+product_list = [{'s': 2}, {'d': 3}]
+category_name = {"cat": product_list}
+
+pprint(f'category_name: {category_name}')
+
+categories.update(category_name)
+
+pprint(f'categories: {categories}')
