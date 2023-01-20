@@ -1,8 +1,8 @@
 from flask import Flask, jsonify
 from flask.views import View
-from pprint import pprint
+# from pprint import pprint
 
-from categories__content import read_headers, get_categories, get_all_products, get_product_in_category
+from categories__content import get_categories, get_all_products, get_product_in_category
 
 # product_categories = get_categories(base_url)
 #
@@ -40,6 +40,7 @@ def get_all_products_view():
     product_categories = get_categories(base_url)
     all_products = get_all_products(product_categories)
     return jsonify(all_products)
+
 
 # http://127.0.0.1:5000/get_products_by_category/Bodysuits
 @app.route('/get_products_by_category/<name>/')
