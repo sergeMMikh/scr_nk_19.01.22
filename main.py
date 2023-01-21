@@ -31,14 +31,12 @@ def get_all_products_view():
     return jsonify(all_products)
 
 
-# http://127.0.0.1:5000/get_products_by_category/Bodysuits
 @app.route('/get_products_by_category/<name>/')
 def get_product_by_category_view(name):
     products = content.get_product_in_category(name, get_img=True)
     return jsonify(products)
 
 
-# http://127.0.0.1:5000/get_products_by_name/Nike Yoga Dri-FIT Luxe
 @app.route('/get_products_by_name/<name>/')
 def get_product_by_name_view(name):
     products = content.get_product_by_name(name)

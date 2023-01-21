@@ -70,13 +70,12 @@ class CategoriesContent:
                 price = ''.join([i.replace(u'\xa0', u"€ ") for i in product_price])
             except AttributeError:
                 price = '-'
-                print('NoneType. price = "-"')
 
             if get_img:
 
-                product_dict = {'name': aria_label.replace(u'\xe4', u' '),
-                                'url': href.replace(u'\xe4', u' '),
-                                'price': price.replace(u'\xe4', u' '),
+                product_dict = {'name': aria_label,
+                                'url': href,
+                                'price': price,
                                 'images': self.get_images(href)}
             else:
                 product_dict = {'name': aria_label.replace(u'\xe4', u' '),
@@ -99,8 +98,6 @@ class CategoriesContent:
         return self.full_products_list
 
     def get_product_by_name(self, product_name: str):
-
-        print(f'product_name: {product_name}')
 
         if not self.full_products_list:
             self.get_all_products()
