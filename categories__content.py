@@ -1,7 +1,7 @@
 import json
-from pprint import pprint
+# from pprint import pprint
 from time import sleep
-
+import re
 import requests
 import bs4
 
@@ -39,7 +39,7 @@ class CategoriesContent:
 
         return self.categories_list
 
-    def get_product_in_category(self, category_name: str) -> dict:
+    def get_product_in_category(self, category_name: str, get_img=False) -> dict:
 
         product_list = []
 
@@ -72,9 +72,16 @@ class CategoriesContent:
                 price = '-'
                 print('NoneType. price = "-"')
 
-            product_dict = {'name': aria_label.replace(u'\xe4', u' '),
-                            'url': href.replace(u'\xe4', u' '),
-                            'price': price.replace(u'\xe4', u' ')}
+            if get_img:
+
+                product_dict = {'name': aria_label.replace(u'\xe4', u' '),
+                                'url': href.replace(u'\xe4', u' '),
+                                'price': price.replace(u'\xe4', u' '),
+                                'images': self.get_images(href)}
+            else:
+                product_dict = {'name': aria_label.replace(u'\xe4', u' '),
+                                'url': href.replace(u'\xe4', u' '),
+                                'price': price.replace(u'\xe4', u' ')}
 
             product_list.append(product_dict)
 
@@ -86,11 +93,7 @@ class CategoriesContent:
 
         self.full_products_list.clear()
 
-        with open("products_list.json", 'w') as f:
-            json.dump({}, f, ensure_ascii=False)
-
         for category_name, href in self.categories_list.items():
-
             self.full_products_list.append(self.get_product_in_category(category_name))
 
         return self.full_products_list
@@ -105,10 +108,34 @@ class CategoriesContent:
         products_list = []
         for category in self.full_products_list:
             for products in category.values():
-
                 for product in products:
-
                     if product['name'] == product_name:
                         products_list.append(product)
 
-        return products_list
+        final_list = []
+        for product in products_list:
+            product_dict = {
+                'name': product['name'],
+                'url': product['url'],
+                'price': product['price'],
+                'images': self.get_images(product['url'])
+            }
+            final_list.append(product_dict)
+
+        return final_list
+
+    def get_images(self, url: str) -> list:
+
+        response = requests.get(url,
+                                headers=self.headers)
+        text = response.text
+        soup = bs4.BeautifulSoup(text, features="html.parser")
+
+        images_list = []
+        images = soup.find_all('img', {'src': re.compile('.png')})
+
+        for item in images:
+            sleep(0.5)
+            images_list.append(item.get('src'))
+
+        return images_list

@@ -10,11 +10,6 @@ app = Flask(__name__)
 content = CategoriesContent()
 
 
-class Base(View):
-    def get(self, user_id: int):
-        return jsonify({'Hello': 'Men!'})
-
-
 @app.route('/')
 def hello():
     return jsonify({'Hello': 'Men!'})
@@ -36,14 +31,13 @@ def get_all_products_view():
 # http://127.0.0.1:5000/get_products_by_category/Bodysuits
 @app.route('/get_products_by_category/<name>/')
 def get_product_by_category_view(name):
-    # return jsonify({'Hello': name})
-    products = content.get_product_in_category(name)
+    products = content.get_product_in_category(name, get_img=True)
     return jsonify(products)
+
 
 # http://127.0.0.1:5000/get_products_by_name/Nike Yoga Dri-FIT Luxe
 @app.route('/get_products_by_name/<name>/')
 def get_product_by_name_view(name):
-    # return jsonify({'Hello': name})
     products = content.get_product_by_name(name)
     return jsonify(products)
 
