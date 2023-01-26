@@ -32,7 +32,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1 # More information on this action can be found below in the 'AWS Credentials' section
         with:
-          role-to-assume: arn:aws:iam::123456789012:role/my-github-actions-role
+          role-to-assume: arn:aws:iam::133500759208:role/aws-elasticbeanstalk-ec2-role
           aws-region: eu-west-2
 
       - name: Login to Amazon ECR Public
