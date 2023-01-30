@@ -41,18 +41,18 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-#      - name: Load secrets and save to app.env
-#        run: aws secretsmanager get-secret-value --secret-id formulating --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
-#
-#      - name: Build, tag, and push docker image to Amazon ECR Public
-#        env:
-#          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-#          REGISTRY_ALIAS: scrap_nk
-#          REPOSITORY: 	scrap_nk
-#          IMAGE_TAG: ${{ github.sha }}
-#        run: |
-#          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
-#          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+      - name: Load secrets and save to app.env
+        run: aws secretsmanager get-secret-value --secret-id formulating --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
+
+      - name: Build, tag, and push docker image to Amazon ECR Public
+        env:
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY_ALIAS: scrap_nk
+          REPOSITORY: 	scrap_nk
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
       
       
       
