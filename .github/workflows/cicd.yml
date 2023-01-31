@@ -44,12 +44,17 @@ jobs:
       - name: Load secrets and save to app.env
         run: aws secretsmanager get-secret-value --secret-id formulating --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
 
+      - name: Automatic Tagging of Releases
+        id: increment-git-tag
+        run: |
+          bash ./build/git_update.sh -v major
+
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: scr_nk_pr
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
           # Build a docker container and
           # push it to ECR so that it can
