@@ -14,7 +14,7 @@ def hello():
     - to get a list of product categories add to IP this string: '/get_categories'<br>
     - to get all products list add this: '/get_all_products'<br>
     - to get product by name use: '/get_products_by_category/"category name"'<br>
-    - to get product by name use: '/get_products_by_name/"name of product"'
+    - to get product by name use: '/get_products_by_name/"product name"'
     """)
 
 
