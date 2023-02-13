@@ -1,5 +1,5 @@
 from pprint import pprint
-from flask import Flask, jsonify  # render_template
+from flask import Flask, jsonify, render_template
 
 from categories__content import CategoriesContent
 
@@ -17,6 +17,11 @@ def hello():
     - to get product by name use: '/get_products_by_category/"category name"'<br>
     - to get product by name use: '/get_products_by_name/"name of product"'
     """)
+
+
+@app.route('/home')
+def home():
+    return render_template('home.html', title="Home")
 
 
 @app.route('/get_categories')
