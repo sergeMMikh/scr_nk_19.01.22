@@ -1,5 +1,5 @@
 from pprint import pprint
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify  # render_template
 
 from categories__content import CategoriesContent
 
