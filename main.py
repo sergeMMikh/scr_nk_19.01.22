@@ -18,7 +18,6 @@ def hello():
     # - to get product by name use: '/get_products_by_name/"name of product"'
     # """)
 
-
 @app.route('/get_categories')
 def get_categories_view():
     url = "https://www.nike.com/de/w/damen-gym-running-22fovz5e1x6"
