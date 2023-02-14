@@ -6,7 +6,7 @@ import requests
 import bs4
 
 
-class CategoriesContent:
+class CategoriesContentNike:
     categories_list = {}
     full_products_list = []
     headers = {}
