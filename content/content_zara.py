@@ -12,7 +12,7 @@ class CategoriesContentZara:
     full_products_list = []
     headers = {}
 
-    def get_categories(self, href: str) -> dict | str:
+    def get_categories(self, href: str) -> dict or str:
         self.headers = read_headers('headers.json')
 
         self.categories_list.clear()
