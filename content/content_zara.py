@@ -1,4 +1,4 @@
-# from pprint import pprint
+from pprint import pprint
 # from time import sleep
 # import re
 import requests
@@ -26,8 +26,10 @@ class CategoriesContentZara:
         if data:
             categories = data.find_all('button', class_="layout-categories-category__name")
 
+            print('category')
+
             for category in categories:
-                print(category)
+                pprint(category)
 
         else:
             print('None')
