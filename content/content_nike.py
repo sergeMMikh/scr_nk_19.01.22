@@ -1,9 +1,9 @@
-import json
-# from pprint import pprint
 from time import sleep
 import re
 import requests
 import bs4
+
+from content.read_headers import read_headers
 
 
 class CategoriesContentNike:
@@ -11,15 +11,8 @@ class CategoriesContentNike:
     full_products_list = []
     headers = {}
 
-    @staticmethod
-    def read_headers(file_name='headers.json'):
-        with open(file_name, 'r') as h:
-            headers = json.load(h)
-
-        return headers
-
     def get_categories(self, href: str) -> dict:
-        self.headers = self.read_headers('headers.json')
+        self.headers = read_headers('headers.json')
 
         self.categories_list.clear()
 
