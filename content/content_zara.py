@@ -31,4 +31,4 @@ class CategoriesContentZara:
 
         else:
             print('None')
-        return '404 The current block is in process'
+        return '500 The current block is in process'
