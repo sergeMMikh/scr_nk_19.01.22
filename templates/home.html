@@ -15,25 +15,42 @@
 
 <body>
 
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url_for('get_categories_view') }}">
-                            - to get a list of product categories add to IP this string: '/get_categories' <span class="sr-only">(current)</span></a>
-                        <a class="nav-link" href="{{ url_for('get_all_products_view') }}">
-                            - to get all products list add this: '/get_all_products' <span class="sr-only">(current)</span></a>
-                        <a class="nav-link" href="{{ url_for('get_categories_view') }}">
-                            - to get product by name use: '/get_products_by_category/"category name" <span class="sr-only">(current)</span></a>
-                        <a class="nav-link" href="{{ url_for('get_all_products_view') }}">
-                            - to get product by name use: '/get_products_by_name/"name of product"' <span class="sr-only">(current)</span></a>
-                    </li>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="nikeSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <p>Nike</p>
+                    <a class="nav-link" href="{{ url_for('nike_get_categories_view') }}">
+                        - to get a list of product categories add to IP this string: '/nike/get_categories' <span
+                            class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ url_for('nike_get_all_products_view') }}">
+                        - to get all products list add this: '/nike/get_all_products' <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ url_for('nike_get_categories_view') }}">
+                        - to get product by name use: '/nike/get_products_by_category/"category name" <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ url_for('nike_get_all_products_view') }}">
+                        - to get product by name use: '/nike/get_products_by_name/"name of product"' <span class="sr-only">(current)</span></a>
+                </li>
 
-                </ul>
-            </div>
-        </nav>
-    </div>
-    </body>
+            </ul>
+        </div>
+    </nav>
+</div>
+<br>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="zaraSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <p>Zara</p>
+                    <a class="nav-link" href="{{ url_for('zara_get_categories_view') }}">
+                        - to get a list of product categories add to IP this string: '/zara/get_categories' <span class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
 
 </html>
