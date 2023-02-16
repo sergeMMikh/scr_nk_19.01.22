@@ -1,4 +1,4 @@
-from pprint import pprint
+# from pprint import pprint
 # from time import sleep
 # import re
 import requests
@@ -18,19 +18,38 @@ class CategoriesContentZara:
         self.categories_list.clear()
 
         response = requests.get(href, headers=self.headers)
-        text = response.text
-        soup = bs4.BeautifulSoup(text, features="html.parser")
 
-        data = soup.find('div', class_="notifications-header-container")
+        text = response.text
+        soup = bs4.BeautifulSoup(text, 'html.parser')
+
+        hr2 = soup.find('head').find_all("meta")
+        for met in hr2:
+
+            if 'URL=' in str(met):
+                mt = str(met).split(';')
+                for m in mt:
+                    if 'URL=' in m:
+                        mt2 = str(mt).split("'")
+                        add_url = mt2[4]
+
+        response = requests.get(href + add_url, headers=self.headers)
+
+        text = response.text
+        soup = bs4.BeautifulSoup(text, 'html.parser')
+
+        data = soup.find('div', class_='layout-categories__categories')
 
         if data:
-            categories = data.find_all('button', class_="layout-categories-category__name")
-
-            print('category')
+            categories = data.find_all('li', class_="layout-categories-category")
 
             for category in categories:
-                pprint(category)
+                cat = category.find('a', class_='layout-categories-category__link link')
+                name = cat.find('span', class_='layout-categories-category__name').text
+                url = cat.get('href')
+
+                self.categories_list.setdefault(name, url)
 
         else:
-            print('None')
-        return '500 The current block is in process'
+            return 'None'
+
+        return self.categories_list
