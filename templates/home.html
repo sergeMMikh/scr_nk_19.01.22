@@ -51,6 +51,25 @@
         </div>
     </nav>
 </div>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="simple_product">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <p>Single Product</p>
+                    <a class="nav-link" href="{{ url_for('get_simple_product_view') }}">
+                        - to get a list of product categories make POST with string: '/product' </a>
+                    <a>json={'url': 'product page url',
+                              'title_id': 'pdp_product_title',
+                              'price_div': 'product-price'}</a>
+                    <a class="nav-link" href="{{ url_for('get_simple_product_view_test') }}">
+                        - test: '/product/nike_test' <span class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</div>
 </body>
 
 </html>
