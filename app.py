@@ -72,8 +72,7 @@ def get_simple_product_view():
 @app.route('/product/nike_test')
 def get_simple_product_view_test():
     data = {"url": 'https://www.nike.com/de/t/zoom-superrep-4-next-nature-damenschuhe-fur-hiit-kurse-3wC06h/DO9837-601',
-            'title_id': 'pdp_product_title',
-            'price_div': 'product-price'}
+            'image': 't_PDP_1280',}
     return jsonify(content_.get_product_data(data))
 
 
