@@ -17,23 +17,22 @@ class SimpleContentAll:
         text = response.text
         soup = bs4.BeautifulSoup(text, features="html.parser")
 
+        # Title
         title_ = soup.find("title")
         print(f'title_: {title_}')
 
         try:
-            title = title_.text
+            title = str(title_.text).split('|')[0]
         except AttributeError:
             title = "-"
 
+        # Image
         images = soup.find_all('img')
 
         images_list = []
         invalid_image_list = []
-        print(f"data.get('image'): {data.get('image')}")
 
         for item in images:
-            print(f'item.type: {type(item)}')
-            print(f"data.get: {str(item).find(str(data.get('image')))}")
             if str(item).find(data.get('image')) > 0:
                 images_list.append(item.get('src'))
             else:
