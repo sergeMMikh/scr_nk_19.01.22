@@ -5,3 +5,4 @@ https://www.zara.com/pt/pt/blusao-denim-com-efeito-de-pelo-encaracolado-p0557531
 https://www.bershka.com/pt/sapatilhas-abotinadas-homem-c0p128228162.html?colorId=001
 
 https://pypi.org/project/price-parser/
+https://www.crummy.com/software/BeautifulSoup/bs4/doc.ru/bs4ru.html#beautifulsoup

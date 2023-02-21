@@ -10,7 +10,6 @@ FlaskJSON(app)
 
 content_nike = CategoriesContentNike()
 content_zara = CategoriesContentZara()
-content_ = SimpleContentAll()
 
 
 def return_json(f):
@@ -66,14 +65,16 @@ def zara_get_categories_view():
 @app.route('/product', methods=['POST'])
 def get_simple_product_view():
     data = request.get_json(force=True)
-    return jsonify(content_.get_product_data(data))
+    product_content = SimpleContentAll(data)
+    return jsonify(product_content.get_product_data())
 
 
 @app.route('/product/nike_test')
 def get_simple_product_view_test():
     data = {"url": 'https://www.nike.com/de/t/zoom-superrep-4-next-nature-damenschuhe-fur-hiit-kurse-3wC06h/DO9837-601',
-            'image': 't_PDP_1280',}
-    return jsonify(content_.get_product_data(data))
+            'image': 't_PDP_1280'}
+    content_ = SimpleContentAll(data)
+    return jsonify(content_.get_product_data())
 
 
 @app.route('/get_value')
