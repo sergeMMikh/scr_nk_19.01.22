@@ -5,6 +5,22 @@ import bs4
 from content.read_headers import read_headers
 
 
+def parse_price(s):
+    if '.' not in s and ',' not in s:
+        return float(s)
+
+    elif s[-3] in ',.':
+        dec_char = s[-3]
+        sep_char = {'.': ',', ',': '.'}[dec_char]
+        s = s.replace(sep_char, '')
+        s = s.replace(',', '.')
+        return float(s)
+
+    else:
+        s = s.replace(',', '').replace('.', '')
+        return float(s)
+
+
 class SimpleContentAll:
     categories_list = {}
     full_products_list = []
@@ -38,13 +54,21 @@ class SimpleContentAll:
             else:
                 invalid_image_list.append(str(item))
 
+        # Price
+        price = soup.find(class_='price').text.strip()
+        print(f'price: {price}')
+
+        if not price:
+            price = soup.find(class_='Price').text.strip()
+            print(f'Price: {price}')
+
         if len(images_list):
             return {"title": title,
-                    # "price": 'price',
+                    "price": price,
                     "img": images_list}
         else:
             return {"title": title,
-                    # "price": 'price',
+                    "price": price,
                     "img": {"warning": f"The service didn't find images with string {data.get('image')}.for "
                                        f"Please check images list to find and useful tag. ",
                             "images": invalid_image_list}
