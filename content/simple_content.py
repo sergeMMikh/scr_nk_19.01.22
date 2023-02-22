@@ -54,24 +54,27 @@ class SimpleContentAll:
         # print('prices')
         spans = self.soup.find_all('span')
 
-        for span in spans:
-            if self.data.get('price'):
-                print(f"data price: {self.data.get('price')}")
-                if str(span).find(self.data.get('price')) > 0:
-                    print(f'span: {span}')
-                    price = span.text.split('€')[0] + '€'
-                    print(f'price: {price}')
-                    return price
+        price = []
 
-            if str(span).find('price') > 0:
-                try:
-                    print(f'span: {span}')
-                    price = span.text.strip()
-                    if '€' in price:
-                        price = price.split('€')[0] + '€'
-                        break
-                except AttributeError:
-                    price = None
+        for span in spans:
+            price.append(span)
+            # if self.data.get('price'):
+            #     print(f"data price: {self.data.get('price')}")
+            #     if str(span).find(self.data.get('price')) > 0:
+            #         print(f'span: {span}')
+            #         price = span.text.split('€')[0] + '€'
+            #         print(f'price: {price}')
+            #         return price
+            #
+            # if str(span).find('price') > 0:
+            #     try:
+            #         print(f'span: {span}')
+            #         price = span.text.strip()
+            #         if '€' in price:
+            #             price = price.split('€')[0] + '€'
+            #             break
+            #     except AttributeError:
+            #         price = None
 
         if not price:
             return '-'
