@@ -46,6 +46,7 @@ class SimpleContentAll:
         if not price:
             try:
                 price = self.soup.find(class_='Price').text.strip()
+                print(f'price!!! = {price}')
                 return price
             except AttributeError:
                 price = None
@@ -55,8 +56,12 @@ class SimpleContentAll:
 
         for span in spans:
             if self.data.get('price'):
+                print(f"data price: {self.data.get('price')}")
                 if str(span).find(self.data.get('price')) > 0:
-                    return span.text.split('€')[0] + '€'
+                    print(f'span: {span}')
+                    price = span.text.split('€')[0] + '€'
+                    print(f'price: {price}')
+                    return price
 
             if str(span).find('price') > 0:
                 try:
