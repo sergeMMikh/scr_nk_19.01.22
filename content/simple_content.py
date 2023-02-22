@@ -1,5 +1,4 @@
-# import re
-# from pprint import pprint
+import re
 
 import requests
 import bs4
@@ -59,6 +58,9 @@ class SimpleContentAll:
                 try:
                     print(f'span: {span}')
                     price = span.text.strip()
+                    if '€' in price:
+                        price = price.split('€')[0] + '€'
+                        break
                 except AttributeError:
                     price = None
 
@@ -70,7 +72,7 @@ class SimpleContentAll:
     def get_product_data(self) -> dict:
 
         try:
-            title = self.soup.title.string.split('|')[0]
+            title = re.split("; |, ", self.soup.title.string)[0]
         except AttributeError:
             title = "-"
 
