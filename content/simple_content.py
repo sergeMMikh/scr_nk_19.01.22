@@ -1,7 +1,6 @@
 import re
 import requests
 import bs4
-
 from content.read_headers import read_headers
 
 
